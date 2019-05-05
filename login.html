@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<title>登录</title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<script src="zlys/js/rem.js"></script>
+		<script src="zlys/js/jquery.min.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="zlys/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="zlys/css/page.css" />
+		<link rel="stylesheet" type="text/css" href="zlys/css/all.css" />
+		<link rel="stylesheet" type="text/css" href="zlys/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="zlys/css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="zlys/css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="zlys/slick/slick.css" />
+		<link rel="stylesheet" type="text/css" href="css/layer.css" />
+
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			})
+		</script>
+	</head>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+	<body>
+		<div class="headertwo clearfloat" id="header">
+			<a href="login.html" class="fl box-s"><i class="iconfont icon-user fl"></i></a>
+			<p class="fl">中科绵投平台</p>
+		</div>
+
+		<div class="sign clearfloat" id="main">
+			<ul>
+				<li class="clearfloat">
+					<i class="iconfont icon-phone fl"></i>
+					<input type="text" id="phone" value="" placeholder="请输入手机号" class="fl phone" />
+				</li>
+				<li class="clearfloat">
+					<i class="iconfont icon-lock fl"></i>
+					<input type="password" id="id" value="" placeholder="请输入身份证后6位" class="fl phone" />
+				</li>
+			</ul>
+			<a href="javascript:void(0);" onclick="login()" class="pay-btn clearfloat">
+				登录
+			</a>
+			<div class="bottom clearfloat">
+				<p class="fl" style="margin-left: 15%;">
+					copyright@四川智链云数科技有限公司
+				</p>
+			</div>
+		</div>
+		<footer class="page-footer fixed-footer" id="footer">
+			<ul>
+				<li>
+					<a href="index.html">
+						<i class="iconfont icon-shouyev1"></i>
+						<p>首页</p>
+					</a>
+				</li>
+				<li>
+					<a href="lease.html">
+						<i class="iconfont icon-chuzuwo"></i>
+						<p>收运记录</p>
+					</a>
+				</li>
+				<li>
+					<a href="schedule.html">
+						<i class="iconfont icon-richengbiao"></i>
+						<p>通知管理</p>
+					</a>
+				</li>
+				<li class="active">
+					<a href="login.html">
+						<i class="iconfont icon-gerenzhongxin"></i>
+						<p>个人中心</p>
+					</a>
+				</li>
+			</ul>
+		</footer>
+	</body>
+	<script type="text/javascript" src="zlys/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="zlys/js/jquery.SuperSlide.2.1.js"></script>
+	<script type="text/javascript" src="zlys/js/hmt.js"></script>
+	<script type="text/javascript" src="js/zlys.js"></script>
+	<script type="text/javascript" src="js/layer.js"></script>
+	<script>
+		var phone = localStorage.getItem("phone");
+		var id = localStorage.getItem("id");
+		if (phone != null) {
+			$("#phone").val(phone);
+			$("#id").val(id);
+		}
+
+		function login() {
+			var phone = $("#phone").val();
+			var id = $("#id").val();
+			$.post(initUrl + "/app/driver/login", {
+				phone: phone,
+				id: id
+			}, function(obj) {
+				if (obj.state == 1) {
+					localStorage.setItem("phone", phone);
+					localStorage.setItem("id", id);
+					window.location.href = "index.html";
+				} else {
+					zlyslay(obj);
+				}
+			})
+
+		}
+	</script>
+</html>
